@@ -1,5 +1,14 @@
 
-<h1>Still a lot to do! Give me a chance to finish.</h1>
+# Node-Async
+
+Needed a library that would allow me to do a series of functions and wait for the result where I could then parse and move on with all the data.
+
+So the idea is:
+* Create a Array of functions I want executed.
+* Wait for them execute
+* Handle Results from the functions when they have been executed.
+
+Based of https://github.com/CurriculumVitae/CV-Data-Service-Client/ that I wrote to help me with http-signature requests to the server.
 
 ## Installation
  
@@ -66,6 +75,12 @@ Will Produce:
 	From Twitter: {some data you got}
 	From Facebook: {some data you got}
 	Error: {The error we received.}
+
+## TODO:
+
+* Add some kind of timeout for the functions
+* Create a Suite of Tests
+* Add some more real world samples
 
 ## License 
 
