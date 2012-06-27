@@ -61,11 +61,11 @@ async_block(
 );
 ```
 
-	Will Produce:
+Will Produce:
 
-		$ From Twitter: {some data you got}
-		$ From Facebook: {some data you got}
-		$ Error: {The error we received.}
+	From Twitter: {some data you got}
+	From Facebook: {some data you got}
+	Error: {The error we received.}
 
 ## License 
 
