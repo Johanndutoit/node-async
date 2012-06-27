@@ -1,0 +1,18 @@
+{
+  "author": "Johann du Toit <exxonno@gmail.com> (http://www.johanndutoit.net)",
+  "name": "node-async",
+  "description": "Easy asynchronous programming with easy to handle results.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Johanndutoit/node-async",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Johanndutoit/node-async.git"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
