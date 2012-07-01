@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Node Async by Johanndutoit</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Node Async</h1>
+        <p>Array of Functions one result. No seriously ! </p>
+
+        <p class="view"><a href="https://github.com/Johanndutoit/node-async">View the Project on GitHub <small>Johanndutoit/node-async</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Johanndutoit/node-async/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Johanndutoit/node-async/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Johanndutoit/node-async">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Node-Async</h1>
+
+<p>Needed a library that would allow me to do a series of functions and wait for the result where I could then parse and move on with all the data.</p>
+
+<p>So the idea is:</p>
+
+<ul>
+<li>Create a Array of functions I want executed.</li>
+<li>Wait for them execute</li>
+<li>Handle Results from the functions when they have been executed.</li>
+</ul><p>Based of <a href="https://github.com/CurriculumVitae/CV-Data-Service-Client/">https://github.com/CurriculumVitae/CV-Data-Service-Client/</a> that I wrote to help me with http-signature requests to the server.</p>
+
+<h2>Installation</h2>
+
+<pre><code>$ npm install node-async
+</code></pre>
+
+<h2>Quick Start</h2>
+
+<div class="highlight">
+<pre><span class="kd">var</span> <span class="nx">async_block</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-async'</span><span class="p">);</span>
+
+<span class="nx">async_block</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">'get_twitter_feed'</span><span class="p">,</span>
+            <span class="nx">task</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Do http request etc.</span>
+                <span class="nx">callback</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">data_from_twitter</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">'get_facebook_feed'</span><span class="p">,</span>
+            <span class="nx">task</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Do http request etc.</span>
+                <span class="nx">callback</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">data_from_facebook</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">'perform_some_calculation'</span><span class="p">,</span>
+            <span class="nx">task</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Do http request etc.</span>
+                <span class="nx">callback</span> <span class="s1">'Error while performing Calculation'</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">get_twitter_feed</span><span class="p">.</span><span class="nx">result</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"From Twitter: "</span> <span class="o">+</span> <span class="nx">results</span><span class="p">.</span><span class="nx">get_twitter_feed</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// handle error</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error: "</span> <span class="o">+</span> <span class="nx">results</span><span class="p">.</span><span class="nx">get_twitter_feed</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">get_facebook_feed</span><span class="p">.</span><span class="nx">result</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"From Facebook: "</span> <span class="o">+</span> <span class="nx">results</span><span class="p">.</span><span class="nx">get_facebook_feed</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// handle error</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error: "</span> <span class="o">+</span> <span class="nx">results</span><span class="p">.</span><span class="nx">get_facebook_feed</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nx">results</span><span class="p">.</span><span class="nx">perform_some_calculation</span><span class="p">.</span><span class="nx">result</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Do something nice</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Handle Error</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error: "</span> <span class="o">+</span> <span class="nx">results</span><span class="p">.</span><span class="nx">perform_some_calculation</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre>
+</div>
+
+
+<p>Will Produce:</p>
+
+<pre><code>From Twitter: {some data you got}
+From Facebook: {some data you got}
+Error: {The error we received.}
+</code></pre>
+
+<h2>TODO:</h2>
+
+<ul>
+<li>Add some kind of timeout for the functions</li>
+<li>Create a Suite of Tests</li>
+<li>Add some more real world samples</li>
+</ul><h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2009-2012</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Johanndutoit">Johanndutoit</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
